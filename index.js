@@ -4,13 +4,9 @@ const _ = require('lodash')
 const request = require("request");
 const moment = require('moment')
 
-// const simproUrl = process.env.SIMPRO_URL;
-// const simproApiKey = process.env.SIMPRO_API_KEY;
-// const integromatHook = process.env.INTEGROMAT_HOOK;
-
-const simproUrl = 'https://aptplumbing.simprosuite.com';
-const simproApiKey = '4d77a9138a51b7414707e0ba8bd5adb4318c3642';
-const integromatHook = 'https://hook.integromat.com/lwbfgo4cdaqj2yljuu8ldzo82o1eoyta';
+const simproUrl = process.env.SIMPRO_URL;
+const simproApiKey = process.env.SIMPRO_API_KEY;
+const integromatHook = process.env.INTEGROMAT_HOOK;
 
 exports.handler = (event, context, callback) => {
     getJobs()
@@ -104,7 +100,7 @@ function getCustomer (id, quote) {
 
   var options = {
     method: 'GET',
-    url:  simproUrl + '/api/v1.0/companies/0/customers/companies/' + id + '?columns=ID,Email,CompanyName,Tags,Phone',
+    url:  simproUrl + '/api/v1.0/companies/0/customers/companies/' + id + '?columns=ID,Email,CompanyName,Tags,Phone,Profile',
     headers:
     {
       Authorization: 'Bearer ' + simproApiKey,
@@ -173,7 +169,7 @@ function getCustomerIndividual (id, quote) {
 
   var options = {
     method: 'GET',
-    url: simproUrl + '/api/v1.0/companies/0/customers/individuals/' + id + '?columns=Email,GivenName,FamilyName,Tags,CellPhone',
+    url: simproUrl + '/api/v1.0/companies/0/customers/individuals/' + id + '?columns=Email,GivenName,FamilyName,Tags,CellPhone,Profile',
     headers:
     {
       Authorization: 'Bearer ' + simproApiKey,
@@ -226,5 +222,3 @@ function validEmail (email) {
   var regex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/g;
   return regex.test(email)
 }
-
-getJob('98614')
